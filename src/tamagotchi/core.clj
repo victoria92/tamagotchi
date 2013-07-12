@@ -43,7 +43,7 @@
 
 (defn is-sick?
   [panda]
-  (and (is-alive? panda) (> (:happiness panda) 10)))
+  (and (is-alive? panda) (< (:happiness panda) 10)))
 
 (def animal (new-panda "Kristofer"))
 
