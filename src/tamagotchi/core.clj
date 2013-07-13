@@ -1,6 +1,8 @@
 (ns tamagotchi.core
   (:use seesaw.core))
 
+(import '(java.io File))
+
 (native!)
 
 (defn new-panda
@@ -62,21 +64,21 @@
 
 (defn make-panel
   []
-  (grid-panel :columns 2
-              :items [eat
-                      (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :feed))
-                      sleep
-                      (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :sleep))
-                      clean
-                      (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :clean))
-                      play
-                      (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :play))
-                      vet
-                      (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :health))
-                      "Happiness :"
-                      (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :happiness))
-                      (make-widget (label :icon "http://www.pandanda.com/web/images/sm_henry_hardhat.jpg"))]))
-
+  (vertical-panel :items [ (grid-panel :columns 4
+                                       :items [eat
+                                               (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :feed))
+                                               sleep
+                                               (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :sleep))
+                                               clean
+                                               (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :clean))
+                                               play
+                                               (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :play))
+                                               vet
+                                               (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :health))
+                                               (label "Happiness :")
+                                               (progress-bar :orientation :horizontal :min 0 :max 100 :value (get-state @animal :happiness))
+                                               ])
+                          (make-widget (label :icon (java.io.File. "resources/panda.png")))]))
 (def main-frame (frame :title "Tamagotchi"
                   :size [640 :by 480]
                   :content (make-panel)))
@@ -91,38 +93,11 @@
 
 (defn -main [& args]
 
-  ; (while true
 
-    ; ((send a (fn [e] (do
-    ;                   (send animal needs :sleep)
-    ;                   (config! main-frame :content (make-panel)))))
-
-    ; (.start (Thread. (timer (fn [e] (do
-    ;                   (send animal needs :feed)
-    ;                   (config! main-frame :content (make-panel)))))))
-
-    ; (send a (fn [e] (timer (fn [e] (do
-    ;                   (send animal needs :sleep)
-    ;                   (config! main-frame :content (make-panel)))))))
-
-    ; (timer (fn [e] (do
-    ;                   (send animal needs :play)
-    ;                   (config! main-frame :content (make-panel)))))
-
-    ; (timer (fn [e] (do
-    ;                   (send animal needs :health)
-    ;                   (config! main-frame :content (make-panel)))))
-
-    ; (timer (fn [e] (do
-    ;                   (send animal needs :clean)
-    ;                   (config! main-frame :content (make-panel)))))
-    ; (.start (Thread. (while true (send a (fn [e] (do
-    ;                                               (send animal needs :sleep)
-    ;                                               (Thread/sleep 3000)
-    ;                                               (config! main-frame :content (make-panel))))))))
 
     (invoke-later
 
+      ()
       (listen eat
         :mouse-clicked (fn [e]
                         (send animal care :feed)
