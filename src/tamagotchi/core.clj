@@ -1,9 +1,6 @@
 (ns tamagotchi.core
   (:use seesaw.core))
 
-; (import '(javax.imageio ImageIO)
-;         '(java.io File))
-
 (native!)
 
 (defn new-panda
@@ -60,7 +57,6 @@
 (def eat (button :text "Feed"))
 (def sleep (button :text "Sleep"))
 (def clean (button :text "Clean"))
-(def start-game (button :text "Start"))
 (def play (button :text "Play"))
 (def vet (button :text "Go to vet"))
 
@@ -82,7 +78,7 @@
                       (make-widget (label :icon "http://www.pandanda.com/web/images/sm_henry_hardhat.jpg"))]))
 
 (def main-frame (frame :title "Tamagotchi"
-                  :size [800 :by 800]
+                  :size [640 :by 480]
                   :content (make-panel)))
 
 (defn all-needs
@@ -147,7 +143,4 @@
         :mouse-clicked (fn [e]
                         (send animal care :health)
                         (config! main-frame :content (make-panel))))
-      (listen start-game
-        :mouse-clicked (fn [e]
-                          true))
       (show! main-frame)))
