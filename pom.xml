@@ -16,7 +16,7 @@
   <scm>
     <connection>scm:git:git://github.com/victoria92/tamagotchi.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/victoria92/tamagotchi.git</developerConnection>
-    <tag>20161cfa369713cb584928032a76f3da813794e4</tag>
+    <tag>294f20a4e71a5d465c92c5d1b98c26deb5be8e7b</tag>
     <url>https://github.com/victoria92/tamagotchi</url>
   </scm>
   <build>
@@ -59,6 +59,16 @@
         <enabled>true</enabled>
       </releases>
     </repository>
+    <repository>
+      <id>sonatype-oss-public</id>
+      <url>https://oss.sonatype.org/content/groups/public/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -70,6 +80,11 @@
       <groupId>seesaw</groupId>
       <artifactId>seesaw</artifactId>
       <version>1.4.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>core.async</artifactId>
+      <version>0.1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>

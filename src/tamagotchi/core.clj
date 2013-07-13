@@ -1,5 +1,6 @@
 (ns tamagotchi.core
-  (:use seesaw.core))
+  (:use seesaw.core)
+  (:require [clojure.core.async :refer :all]))
 
 (import '(java.io File))
 
@@ -97,7 +98,11 @@
 
     (invoke-later
 
-      ()
+      (go
+         (timer (fn [e] (do
+                      (send animal needs :play)
+                      (config! main-frame :content)))))
+
       (listen eat
         :mouse-clicked (fn [e]
                         (send animal care :feed)
